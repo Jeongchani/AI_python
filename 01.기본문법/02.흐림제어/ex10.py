@@ -1,5 +1,5 @@
 address = [
-    {'no':3, 'name':'홍길동', 'juso':'인천 서구 경서동'},
+    {'no':3, 'name':'이순신', 'juso':'인천 서구 경서동'},
     {'no':4, 'name':'심청이', 'juso':'경기도 광명시 철산동'},
 ]
 while True:
@@ -33,7 +33,7 @@ while True:
         #검색시작------------------------------------------------
         name=input('검색이름>')
         for a in address:
-            if name==a['name']:
+            if a['name'].find(name) != -1:
                 print(a['no'], a['name'], a['juso'])
         #검색종료------------------------------------------------
     elif menu=='4':
@@ -47,6 +47,16 @@ while True:
                 print(no, '번 삭제되었습니다.')
         #삭제종료------------------------------------------------
     elif menu=='5':
-        pass
+        #수정시작------------------------------------------------
+        no = input('수정번호>')
+        for a in address:
+            if int(no)==a['no']: #수정번호를 찾은경우
+                name = input(f'이름:{a["name"]}>')
+                if name != '': #수정할 경우
+                    a['name'] = name
+                juso = input(f'주소:{a["juso"]}>')
+                if juso != '':
+                    a['juso'] = juso    
+        #수정종료------------------------------------------------
     else:
         print('0~5번을 다시 선택하세요!')
