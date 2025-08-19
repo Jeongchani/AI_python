@@ -13,3 +13,11 @@ java.add('강호동') #추가
 print(6, java)
 java.remove('유재석') #삭제
 print(7, java)
+
+print(8, java, type(java))
+java = list(java)
+print(9, java, type(java))
+java = tuple(java)
+print(10, java, type(java))
+java = set(java)
+print(11, java, type(java))
