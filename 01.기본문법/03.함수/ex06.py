@@ -55,7 +55,7 @@ while True:
         if isFind == True:
             index = inputNum("수정번호")
             s = scores[index]
-            
+
             name = input(f"수정이름:{s['name']}>")
             if name != "": s['name'] = name
 
@@ -68,4 +68,4 @@ while True:
             mat = inputNum(f"수학:{s['mat']}")
             if mat!=0: s['mat'] = mat
 
-            scores[index]=s
+            #scores[index]=s
