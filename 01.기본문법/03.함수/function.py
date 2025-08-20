@@ -26,6 +26,8 @@ def inputNum(title):
         str = input(f"{title}>")
         if str.isnumeric():
             return int(str)
+        elif str == "":
+            return 0
         else:
             print(f"{title}을(를) 숫자로 입력하세요!")
 
