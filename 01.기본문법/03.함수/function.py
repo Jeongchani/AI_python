@@ -5,7 +5,7 @@ def isNumber(str):
     else:
         print("숫자로 입력하세요!")
         return False
-    
+        
 #학점구하기 함수
 def grade(score):
     grade=""
@@ -20,3 +20,18 @@ def grade(score):
     else:
         grade="F"
     return grade
+
+def inputNum(title):
+    while True:
+        str = input(f"{title}>")
+        if str.isnumeric():
+            return int(str)
+        else:
+            print(f"{title}을(를) 숫자로 입력하세요!")
+
+#메뉴출력함수
+def menuPrint(title):
+    print(f"\n***************{title}******************")
+    print("------------------------------------------")
+    print("|1.입력|2.검색|3.목록|4.삭제|5.수정|0.종료")
+    print("------------------------------------------")
