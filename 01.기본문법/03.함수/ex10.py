@@ -49,8 +49,25 @@ while True:
             if sel=="Y" or sel == "y":
                 sale.pop(idx)
                 print("삭제완료!")
-                
+
     elif menu == "5": #수정
-        pass
+        code = inputNum("수정번호>")
+        if code=="": continue
+        idx = search(sale, code)
+        if idx == None:
+            print(f"{code}번 상품이 없습니다.")
+            continue
+        s = sale[idx]
+        new_name = input(f"상품이름:{s['name']}>")
+        if new_name == "": new_name = s['name']
+        new_price = inputNum(f"상품단가:{s['price']:,}만원>")
+        if new_price == "": new_price = s['price'] 
+        new_qnt = inputNum(f"판매수량:{s['qnt']:,}개>")
+        if new_qnt =="": new_qnt = s['qnt']
+        #print(new_name, new_price, new_qnt)
+        sel = input("수정하실래요?(Y)")
+        if sel== "Y" or sel=="y":
+            sale[idx]={'code':code,'name':new_name,'price':new_price,'qnt':new_qnt}
+            print("수정완료!")
     else:
         print("0~5를 입력하세요!")                
