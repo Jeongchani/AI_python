@@ -35,7 +35,7 @@ while True:
             print(f"총매출가:{s['price']*s['qnt']:,}만원")
     elif menu == "3": #목록
         for s in sale:
-            print(s)
+            itemPrint(s)
     elif menu == "4": #삭제
         code = inputNum("삭제코드>")
         if code=="": continue

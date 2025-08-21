@@ -31,3 +31,24 @@ def menuPrint(title):
     print("------------------------------------------")
     print("|1.입력|2.검색|3.목록|4.삭제|5.수정|0.종료")
     print("------------------------------------------")
+
+#아이템 출력 함수
+def itemPrint(item):
+    keys = item.keys()
+    print()
+    for key in keys:
+        if isinstance(item[key], int):
+            print(f"{item[key]:>5,}", end="\t")
+        else:
+            print(f"{item[key]:<20}", end="\t")        
+    print()
+    print('-' * 50)
+
+
+if __name__ == '__main__':
+    sale = [
+        {'code':1, 'name':'냉장고', 'price':250, 'qnt1':5},
+        {'code':2, 'name':'세탁기', 'price':15000000, 'qnt1':3},
+    ]
+
+    itemPrint(sale[1])
