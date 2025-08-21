@@ -15,8 +15,11 @@ while True:
         new_code = newCode(sale)
         print(f"상품코드>{new_code}")
         new_name = input("상품이름>")
+        if new_name == "": continue
         new_price = inputNum("상품단가>")
+        if new_price == "": new_price=0
         new_qnt = inputNum("판매수량>")
+        if new_qnt == "": new_qnt=0
         sale.append({'code':new_code,'name':new_name,'price':new_price,'qnt':new_qnt})
         print("등록완료!")
     elif menu == "2": #검색
@@ -34,7 +37,19 @@ while True:
         for s in sale:
             print(s)
     elif menu == "4": #삭제
-        pass
+        code = inputNum("삭제코드>")
+        if code=="": continue
+        idx = search(sale, code)
+        if idx==None:
+            print(f"{code}번 상품이 없습니다.")
+        else:    
+            s = sale[idx]
+            print(s)
+            sel = input("삭제하실래요?(Y)")
+            if sel=="Y" or sel == "y":
+                sale.pop(idx)
+                print("삭제완료!")
+                
     elif menu == "5": #수정
         pass
     else:
