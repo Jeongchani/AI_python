@@ -1,7 +1,7 @@
 #숫자가 입력될까지 계속 입력하는 함수
 def inputNum(title):
     while True:
-        num = input(f"{title}>")
+        num = input(f"{title}")
         if num.isnumeric():
             return int(num)
         elif num == "":
