@@ -1,3 +1,13 @@
+#새로운 코드를 생성함수
+def newCode(list):
+    if len(list) == 0:
+        return 1
+    
+    codes = []
+    for s in list:
+        codes.append(s['code'])
+    return max(codes)+1
+
 #숫자가 입력될까지 계속 입력하는 함수
 def inputNum(title):
     while True:

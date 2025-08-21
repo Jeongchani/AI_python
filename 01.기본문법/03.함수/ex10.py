@@ -12,7 +12,13 @@ while True:
         print("프로그램을 종료합니다.")
         break
     elif menu == "1": #입력
-        pass
+        new_code = newCode(sale)
+        print(f"상품코드>{new_code}")
+        new_name = input("상품이름>")
+        new_price = inputNum("상품단가>")
+        new_qnt = inputNum("판매수량>")
+        sale.append({'code':new_code,'name':new_name,'price':new_price,'qnt':new_qnt})
+        print("등록완료!")
     elif menu == "2": #검색
         code = inputNum("검색코드>")
         idx = search(sale, code)
@@ -25,7 +31,8 @@ while True:
             print(f"판매수량:{s['qnt']:,}개")    
             print(f"총매출가:{s['price']*s['qnt']:,}만원")
     elif menu == "3": #목록
-        pass
+        for s in sale:
+            print(s)
     elif menu == "4": #삭제
         pass
     elif menu == "5": #수정
