@@ -12,12 +12,21 @@ def read():
         list = [] #데이터를 저장
         for line in lines:
             items = line.split(",")
-            name = items[0]
-            phone= items[1]
-            address=items[2]
-            item = {'name':name, 'phone':phone, 'address':address}
+            no = items[0]
+            name = items[1]
+            phone= items[2]
+            address=items[3]
+            item = {'no':no, 'name':name, 'phone':phone, 'address':address}
             list.append(item) #item을 list에 추가
         return list
+
+def search(name):
+    items = read()
+    list = []
+    for item in items:
+        if item['name'].find(name) != -1:
+            list.append(item)
+    return list
         
 while True:
     menuPrint("주소관리")
@@ -33,4 +42,12 @@ while True:
     elif menu=="3": #목록
         items = read()
         for item in items:
-            print(f"{item['name']},{item['phone']},{item['address']}", end="")
+            print(f"{item['no']},{item['name']},{item['phone']},{item['address']}", end="")
+    elif menu=="2": #검색
+        name = input("검색이름>")
+        list = search(name)
+        if len(list)==0:
+            print(f"'{name}' 데이터가 없습니다.")
+            continue
+        for item in list:
+            print(f"{item['no']},{item['name']},{item['phone']},{item['address']}",end="")
