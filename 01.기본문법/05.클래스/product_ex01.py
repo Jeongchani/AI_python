@@ -21,7 +21,9 @@ while True:
         code = f'{code:03d}'
         print(f"상품코드>{code}")
         name = input("상품이름>")
-        price = input("상품가격>")
+        if name=="":continue
+        price = inputNum("상품가격>")
+        if price=="": price=0
         p = Product(code, name, price)
         products.append(p.dict())
         print("상품등록완료!")
@@ -50,8 +52,11 @@ while True:
         if idx == None:
             print(f'{code} 상품이 없습니다.')
             continue
-        
+
         p = products[idx]
         name  = input(f"상품이름:{p['name']}>")
         if name != '': p['name'] = name
+        price = inputNum(f"상품가격:{p['price']}>")
+        if price !="": p['price'] = price
+        print("상품수정완료!")
     
