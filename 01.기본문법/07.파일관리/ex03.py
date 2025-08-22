@@ -4,7 +4,7 @@ file_name = 'C:/python/01.기본문법/data/juso.txt'
 #파일에 데이터저장
 def insert(name, phone, address):
     with open(file_name, 'a', encoding='utf-8') as file:
-        no = int(maxNo()) + 1
+        no = maxNo() + 1
         file.write(f"{no},{name},{phone},{address}\n")
         print("등록완료!")
 
@@ -37,7 +37,7 @@ def maxNo():
     items = read()
     nos = []
     for item in items:
-        nos.append(item['no'])
+        nos.append(int(item['no']))
     if len(nos)==0:
         return 0
     else:
