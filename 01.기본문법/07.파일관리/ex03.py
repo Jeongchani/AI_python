@@ -1,11 +1,14 @@
 from function import *
 
 file_name = 'C:/python/01.기본문법/data/juso.txt'
+#파일에 데이터저장
 def insert(name, phone, address):
     with open(file_name, 'a', encoding='utf-8') as file:
-        file.write(f"{name},{phone},{address}\n")
+        no = int(maxNo()) + 1
+        file.write(f"{no},{name},{phone},{address}\n")
         print("등록완료!")
 
+#파일에 데이터를 읽어서 list 리턴하는 함수
 def read():
     with open(file_name, 'r', encoding='utf-8') as file:
         lines = file.readlines()
@@ -20,6 +23,7 @@ def read():
             list.append(item) #item을 list에 추가
         return list
 
+#이름을 받아서 검색결과를 딕션러리로 리턴하는 함수
 def search(name):
     items = read()
     list = []
@@ -27,7 +31,18 @@ def search(name):
         if item['name'].find(name) != -1:
             list.append(item)
     return list
-        
+
+#가장큰 번호를 찾아서 리턴하는 함수
+def maxNo():
+    items = read()
+    nos = []
+    for item in items:
+        nos.append(item['no'])
+    if len(nos)==0:
+        return 0
+    else:
+        return max(nos)
+
 while True:
     menuPrint("주소관리")
     menu = input("메뉴선택>")
