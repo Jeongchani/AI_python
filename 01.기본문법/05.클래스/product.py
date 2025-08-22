@@ -11,3 +11,4 @@ class Product:
 if __name__=='__main__':
     p = Product('P01', '냉장고', 250)
     print(p.dict())
+    

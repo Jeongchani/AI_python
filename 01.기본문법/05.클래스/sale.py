@@ -1,12 +1,13 @@
 from product import Product
-from datetime import date
+import time, datetime
 
 class Sale(Product):
     def __init__(self, code, name, price, qnt):
         super().__init__(code, name, price)
         self.seq=0
         self.qnt= qnt
-        self.date = date.today()
+        #self.date = datetime.date.today()
+        self.date = time.localtime()
         self.sum = self.price * self.qnt
 
     def dict(self):
@@ -18,5 +19,7 @@ class Sale(Product):
         return child
     
 if __name__=='__main__':
-    s = Sale('001', '냉장고', 250, 10)
-    print(s.dict())   
+    sale = Sale('001', '냉장고', 250, 10)
+    sale = sale.dict()
+    print(sale)
+    #print(f"상품등록일{time.strftime('%Y-%m-%d %H:%M:%S').sale['date']}")

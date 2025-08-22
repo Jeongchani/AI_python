@@ -50,10 +50,14 @@ while True:
             print(f"{s['qnt']:,}개,{s['sum']:,}만원,{s['date']}")
     elif menu=="2": #검색
         name = input("검색이름>")
+        isFind =False
         for s in sale:
             if s['name'].upper().find(name.upper()) != -1:
                 print(f"{s['code']},{s['name']},{s['price']:,}만원,", end="")
                 print(f"{s['qnt']:,}개,{s['sum']:,}만원,{s['date']}")
+                isFind = True
+        if isFind==False: print("검색이름 없습니다.")
+
     elif menu=="4": #삭제
         seq = inputNum("삭제번호>")
         if seq == "":continue
@@ -76,5 +80,3 @@ while True:
                 qnt = inputNum(f"판매수량:{s['qnt']}>")
                 if qnt != "": s['qnt']=qnt
                 print("매출수정완료!")
-
-        
