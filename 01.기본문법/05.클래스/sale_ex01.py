@@ -54,4 +54,27 @@ while True:
             if s['name'].upper().find(name.upper()) != -1:
                 print(f"{s['code']},{s['name']},{s['price']:,}만원,", end="")
                 print(f"{s['qnt']:,}개,{s['sum']:,}만원,{s['date']}")
+    elif menu=="4": #삭제
+        seq = inputNum("삭제번호>")
+        if seq == "":continue
+        for idx, s in enumerate(sale):
+            if s['seq'] == seq:
+                print(f"{s['seq']},{s['code']},{s['name']},{s['price']:,}만원,", end="")
+                print(f"{s['qnt']:,}개,{s['sum']:,}만원,{s['date']}")
+                sel = input("삭제하실래요?(Y)")
+                if sel=="Y" or sel=="y":
+                    sale.pop(idx)
+                    print("매출삭제완료!")
+    elif menu=="5": #수정
+        seq = inputNum("수정번호>")
+        if seq == "":continue
+        for s in sale:
+            if seq == s['seq']:
+                print(f"상품코드:{s['code']}")
+                print(f"상품이름:{s['name']}")
+                print(f"판매일:{s['date']}")
+                qnt = inputNum(f"판매수량:{s['qnt']}>")
+                if qnt != "": s['qnt']=qnt
+                print("매출수정완료!")
+
         
