@@ -14,6 +14,15 @@ def search(code):
         if code==p['code']:
             return p
         
+def max_seq():
+    seqs = []
+    for s in sale:
+        seqs.append(s['seq'])
+    if len(seqs)==0:
+        return 0
+    else:
+        return max(seqs)
+
 while True:
     menuPrint('매출관리')
     menu = input("메뉴선택>")
@@ -32,9 +41,17 @@ while True:
             qnt = inputNum("수량>")
             if qnt=="":continue
             s = Sale(code, name, price, qnt)
+            s.seq = max_seq()+1
             sale.append(s.dict())
             print("매출등록완료!")
     elif menu=="3": #목록
         for s in sale:
-            print(f"{s['code']},{s['name']},{s['price']:,}만원,", end="")
+            print(f"{s['seq']},{s['code']},{s['name']},{s['price']:,}만원,", end="")
             print(f"{s['qnt']:,}개,{s['sum']:,}만원,{s['date']}")
+    elif menu=="2": #검색
+        name = input("검색이름>")
+        for s in sale:
+            if s['name'].upper().find(name.upper()) != -1:
+                print(f"{s['code']},{s['name']},{s['price']:,}만원,", end="")
+                print(f"{s['qnt']:,}개,{s['sum']:,}만원,{s['date']}")
+        
