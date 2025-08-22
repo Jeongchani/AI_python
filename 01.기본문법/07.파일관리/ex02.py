@@ -7,3 +7,7 @@ with open(file_name, 'r', encoding='utf-8') as file:
         #print(line, end='')
         items = line.split(",")
         print(f"이름:{items[0]}, 전화:{items[1]}, 주소:{items[2]}", end="")
+
+    
+
+
