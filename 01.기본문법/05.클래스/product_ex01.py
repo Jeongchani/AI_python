@@ -5,6 +5,12 @@ products = [
     {'code':'001', 'name':'LG 냉장고', 'price':250},
     {'code':'002', 'name':'LG 세탁기', 'price':180},
 ]
+
+def search(code):
+    for idx, p in enumerate(products):
+        if code == p['code']:
+            return idx
+        
 while True:
     menuPrint("상품관리")
     menu = input("메뉴선택>")
@@ -31,7 +37,21 @@ while True:
     elif menu=="4": #삭제
         code = input("삭제코드>")
         if code == "":continue
-        for idx, p in enumerate(products):
-            if p['code'] == code:
-                products.pop(idx)
-                print("상품삭제완료!")
+        idx = search(code)
+        if idx == None:
+            print(f'{code}번 상품이 없습니다.')
+        else:
+            products.pop(idx)
+            print("상품삭제완료!")
+    elif menu=="5": #수정
+        code = input("수정코드>")
+        if code=="": continue
+        idx = search(code)
+        if idx == None:
+            print(f'{code} 상품이 없습니다.')
+            continue
+        
+        p = products[idx]
+        name  = input(f"상품이름:{p['name']}>")
+        if name != '': p['name'] = name
+    
