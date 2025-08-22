@@ -43,8 +43,12 @@ while True:
         if idx == None:
             print(f'{code}번 상품이 없습니다.')
         else:
-            products.pop(idx)
-            print("상품삭제완료!")
+            p=products[idx]
+            print(p['code'], p['name'], p['price'])
+            sel = input("삭제하실래요?(Y)")
+            if sel=="Y" or sel=="y":
+                products.pop(idx)
+                print("상품삭제완료!")
     elif menu=="5": #수정
         code = input("수정코드>")
         if code=="": continue
