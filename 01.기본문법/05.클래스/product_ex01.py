@@ -25,3 +25,6 @@ while True:
         print(f'{len(products)}개 상품이 존재합니다!')
     elif menu=="2": #검색
         name = input("검색이름>")
+        for p in products:
+            if p['name'].upper().find(name.upper()) != -1:
+                print(p['code'], p['name'], p['price'])
