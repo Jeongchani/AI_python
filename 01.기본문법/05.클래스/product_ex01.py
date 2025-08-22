@@ -2,8 +2,8 @@ from function import *
 from product import Product
 
 products = [
-    {'code':'P001', 'name':'LG 냉장고', 'price':250},
-    {'code':'P002', 'name':'LG 세탁기', 'price':180},
+    {'code':'001', 'name':'LG 냉장고', 'price':250},
+    {'code':'002', 'name':'LG 세탁기', 'price':180},
 ]
 while True:
     menuPrint("상품관리")
@@ -12,7 +12,7 @@ while True:
         break
     elif menu=="1": #등록
         code = len(products)+1
-        code = f'P{code:03d}'
+        code = f'{code:03d}'
         print(f"상품코드>{code}")
         name = input("상품이름>")
         price = input("상품가격>")
@@ -28,3 +28,10 @@ while True:
         for p in products:
             if p['name'].upper().find(name.upper()) != -1:
                 print(p['code'], p['name'], p['price'])
+    elif menu=="4": #삭제
+        code = input("삭제코드>")
+        if code == "":continue
+        for idx, p in enumerate(products):
+            if p['code'] == code:
+                products.pop(idx)
+                print("상품삭제완료!")
