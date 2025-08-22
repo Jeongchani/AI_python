@@ -1,11 +1,24 @@
 from function import *
 
-file_name = 'data/juso.txt'
+file_name = 'C:/python/01.기본문법/data/juso.txt'
 def insert(name, phone, address):
     with open(file_name, 'a', encoding='utf-8') as file:
-        file.write(f"{name},{phone},{address}")
+        file.write(f"{name},{phone},{address}\n")
         print("등록완료!")
 
+def read():
+    with open(file_name, 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+        list = [] #데이터를 저장
+        for line in lines:
+            items = line.split(",")
+            name = items[0]
+            phone= items[1]
+            address=items[2]
+            item = {'name':name, 'phone':phone, 'address':address}
+            list.append(item) #item을 list에 추가
+        return list
+        
 while True:
     menuPrint("주소관리")
     menu = input("메뉴선택>")
@@ -17,3 +30,7 @@ while True:
         phone = input("전화>")
         address = input("주소>")
         insert(name, phone, address)
+    elif menu=="3": #목록
+        items = read()
+        for item in items:
+            print(f"{item['name']},{item['phone']},{item['address']}", end="")
