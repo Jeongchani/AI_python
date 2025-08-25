@@ -12,7 +12,8 @@ class Person:
     def print(self): #메서드
         #print('번호:' + self.seq + ' ,이름:' + self.name)
         print(f'번호:{self.seq}, 이름:{self.name}, 주소:{self.address}')
-
+        print('-' * 50)
+        
 file_name = path + '/juso.txt'
 
 #파일에 객체를 추가하는 함수

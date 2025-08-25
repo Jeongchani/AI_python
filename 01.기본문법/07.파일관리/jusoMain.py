@@ -7,3 +7,7 @@ while True:
     if menu=="0":
         print("프로그램을 종료합니다.")
         break
+    elif menu=="3": #목록
+        list = fileRead()
+        for person in list:
+            person.print()
