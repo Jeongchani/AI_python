@@ -1,6 +1,15 @@
 from function import *
 from productFile import *
 
+def newCode():
+    list = fileRead()
+    result = sorted(list, key=lambda p:p.code, reverse=True)
+    if len(list)==0:
+        return 1
+    else:
+        p=result[0]
+        return p.code+1
+    
 while True:
     menuPrint('상품관리')
     menu = input('메뉴선택:')
@@ -8,6 +17,9 @@ while True:
         print('프로그램을 종료합니다.')
         break
     elif menu=='1': #입력
+        p = Product()
+        p.code = newCode()
+        print(f'상품코드>{p.code}')
         pass
     elif menu=='2': #검색
         pass
