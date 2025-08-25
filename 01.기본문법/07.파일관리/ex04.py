@@ -20,6 +20,12 @@ def fileAppend(person):
     with open(file_name, 'a', encoding='utf-8') as file:
         file.write(f'{person.seq},{person.name},{person.address}\n')
 
+#파일에 객체를 추가하는 함수
+def fileWrite(list):
+    with open(file_name, 'w', encoding='utf-8') as file:
+        for person in list:
+            file.write(f'{person.seq},{person.name},{person.address}\n')
+
 #파일에서 데이틀 읽어오는 함수
 def fileRead():
     list = []
@@ -60,9 +66,28 @@ def search(type, value):
         result = [person for person in list if person.address.find(value)!=-1]    
     return result
 
-result=search(3, '인천')
-if len(result)==0:
-    print("검색 결과가 없습니다.")
-else:    
-    for person in result:
-        person.print()
+#삭제 함수
+def delete(seq):
+    list = fileRead()
+    result = [person for person in list if person.seq != seq]
+    fileWrite(result)
+
+
+#수정 함수
+def update(seq):
+    list = fileRead()
+    result = [person for person in list if person.seq==seq]
+    if len(result)==0:
+        print("검색결과가 없습니다.")
+    else:    
+        person = result[0]
+        #person.print()
+        name = input(f'이름:{person.name}>')
+        if name != '': person.name = name
+        address = input(f'주소:{person.address}>')
+        if address !='': person.address= address
+        fileWrite(list)
+        person.print()  
+
+seq = int(input("수정번호>"))
+update(seq)
