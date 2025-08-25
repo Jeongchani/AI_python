@@ -1,0 +1,32 @@
+import os
+path = os.path.dirname(os.path.realpath(__file__))
+#print('현재패스:', path)
+
+#주소 관리 클래스
+class Person:
+    def __init__(self): #생성자
+        self.seq = 0 #속성(seq, name, address)
+        self.name=''
+        self.address='경기도 광명시'
+
+    def print(self): #메서드
+        #print('번호:' + self.seq + ' ,이름:' + self.name)
+        print(f'번호:{self.seq}, 이름:{self.name}, 주소:{self.address}')
+
+file_name = path + '/juso.txt'
+
+#파일에 객체를 추가하는 함수
+def fileAppend(person):
+    with open(file_name, 'a', encoding='utf-8') as file:
+        file.write(f'{person.seq},{person.name},{person.address}\n')
+
+#데이터 추가 테스트 
+def append():
+    person = Person()
+    person.seq=5
+    person.name='이순신'
+    person.address='인천 서구 경서동'
+    person.print()
+    fileAppend(person)
+
+append()
