@@ -20,6 +20,26 @@ def fileAppend(person):
     with open(file_name, 'a', encoding='utf-8') as file:
         file.write(f'{person.seq},{person.name},{person.address}\n')
 
+#파일에서 데이틀 읽어오는 함수
+def fileRead():
+    list = []
+    with open(file_name, 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+        for line in lines:
+            items = line.split(',')
+            person = Person()
+            person.seq = items[0]
+            person.name = items[1]
+            person.address = items[2].replace('\n', '')
+            list.append(person)
+        return list    
+    
+#목록 출력 테스트
+def list():
+    list = fileRead()
+    for person in list:
+        person.print()
+
 #데이터 추가 테스트 
 def append():
     person = Person()
@@ -29,4 +49,4 @@ def append():
     person.print()
     fileAppend(person)
 
-append()
+list()
