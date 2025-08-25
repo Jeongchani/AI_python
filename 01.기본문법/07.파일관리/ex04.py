@@ -28,7 +28,7 @@ def fileRead():
         for line in lines:
             items = line.split(',')
             person = Person()
-            person.seq = items[0]
+            person.seq = int(items[0])
             person.name = items[1]
             person.address = items[2].replace('\n', '')
             list.append(person)
@@ -49,4 +49,20 @@ def append():
     person.print()
     fileAppend(person)
 
-list()
+def search(type, value):
+    list = fileRead()
+    result = []
+    if type==1: #seq 검색
+        result = [person for person in list if person.seq==value]
+    elif type==2: #name 검색
+        result = [person for person in list if person.name.find(value)!=-1]
+    elif type==3: #address 검색
+        result = [person for person in list if person.address.find(value)!=-1]    
+    return result
+
+result=search(3, '인천')
+if len(result)==0:
+    print("검색 결과가 없습니다.")
+else:    
+    for person in result:
+        person.print()
