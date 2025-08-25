@@ -87,7 +87,4 @@ def update(seq):
         address = input(f'주소:{person.address}>')
         if address !='': person.address= address
         fileWrite(list)
-        person.print()  
-
-seq = int(input("수정번호>"))
-update(seq)
+        person.print() 
