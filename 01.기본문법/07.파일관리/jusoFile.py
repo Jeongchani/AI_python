@@ -12,8 +12,7 @@ class Person:
     def print(self): #메서드
         #print('번호:' + self.seq + ' ,이름:' + self.name)
         print(f'번호:{self.seq}, 이름:{self.name}, 주소:{self.address}')
-        print('-' * 50)
-        
+
 file_name = path + '/juso.txt'
 
 #파일에 객체를 추가하는 함수
@@ -50,11 +49,12 @@ def list():
 #데이터 추가 테스트 
 def append():
     person = Person()
-    person.seq=5
+    person.seq=1
     person.name='이순신'
     person.address='인천 서구 경서동'
     person.print()
     fileAppend(person)
+    print('입력성공!')
 
 def search(type, value):
     list = fileRead()
@@ -70,9 +70,13 @@ def search(type, value):
 #삭제 함수
 def delete(seq):
     list = fileRead()
-    result = [person for person in list if person.seq != seq]
-    fileWrite(result)
-
+    result = [person for person in list if person.seq==seq]
+    if len(result)==0:
+        print("검색결과가 없습니다.")
+    else:
+        result = [person for person in list if person.seq != seq]
+        fileWrite(result)
+        print('삭제성공!')
 
 #수정 함수
 def update(seq):
@@ -82,10 +86,13 @@ def update(seq):
         print("검색결과가 없습니다.")
     else:    
         person = result[0]
-        #person.print()
         name = input(f'이름:{person.name}>')
         if name != '': person.name = name
         address = input(f'주소:{person.address}>')
         if address !='': person.address= address
         fileWrite(list)
-        person.print() 
+        person.print()
+        print('수정완료!')
+
+if __name__=='__main__':
+    update(3)
