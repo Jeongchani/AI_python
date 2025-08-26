@@ -24,3 +24,16 @@ update juso set name='김길동', address='서울 강남구 압구정동' where 
 select * from juso where name like '%동%' order by name desc;
 select * from juso order by address desc;
  
+create table product(
+    code integer primary key AUTOINCREMENT,
+    name char(100),
+    price integer DEFAULT 0
+);
+
+select * from product;
+
+insert into product(name, price)
+values('LG 오브제 세탁기', 2500000);
+insert into product(name, price)
+values('LG 오브제 냉장고', 3500000);
+ 
