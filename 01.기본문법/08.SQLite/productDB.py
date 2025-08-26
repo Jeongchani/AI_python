@@ -59,6 +59,29 @@ def search(name):
     con.close()
     return rows
 
+def delete(code):
+    con = sqlite3.connect(db_name)
+    cur = con.cursor()
+    sql ='delete from product where code=?'
+    cur.execute(sql, (code,))
+    con.commit()
+    cur.close()
+    con.close()
+
+def delete_test():
+    code = int(input('상품코드>'))
+    row = read(code)
+    if row==None:
+        print('상품코드가 없습니다.')
+    else:  
+        p = Product()
+        p.code = row[0]
+        p.name = row[1]
+        p.price = row[2]
+        p.print() 
+        delete(code)
+        list_test(1)
+
 def search_test():
     while True:
         name = input('상품명>')
@@ -70,6 +93,7 @@ def search_test():
             p.name = row[1]
             p.price = row[2]
             p.print()
+
 def read_test():
     code = int(input('상품코드>'))
     row = read(code)
@@ -100,4 +124,4 @@ def list_test(type):
 
 
 if __name__=='__main__':
-    search_test()
+    delete_test()
