@@ -24,9 +24,17 @@ while True:
         fileAppend(person)
         person.print()
     elif menu=="3": #목록
-        list = fileRead()
-        for person in list:
-            person.print()
+        while True:
+            sort = inputNum('1.최근입력순|2.이름순|3.주소순>')
+            if sort == '':break
+            list = fileRead()
+            result = []
+            if sort==1:result = sorted(list, key=lambda p:p.seq, reverse=True)
+            if sort==2:result = sorted(list, key=lambda p:p.name)
+            if sort==3:result = sorted(list, key=lambda p:p.address)
+            for p in result:
+                p.print()
+            print('-' * 40)
     elif menu=="4": #삭제
         seq = inputNum("삭제번호>")
         list = fileRead()

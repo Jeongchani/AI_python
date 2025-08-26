@@ -1,6 +1,6 @@
 ﻿/*테이블 생성*/
 create table juso(
-       seq integer primary key autoincrement, 
+       seq int primary key autoincrement, 
        name char(20), 
        address char(200)
 );
