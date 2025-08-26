@@ -22,6 +22,14 @@ def rowPrint(row):
         product.price = row[2]
         product.print()
         return product 
+    
+def rowPrint2(row):
+    product = Product()
+    product.code = row[0]
+    product.name = row[1]
+    product.price = row[2]
+    product.print()
+    return product 
 
 def list(type): #type=1:코드순, 2:이름, 3:최저가, 4:최고가
     con = sqlite3.connect(db_name) #데이터베이스 오픈
