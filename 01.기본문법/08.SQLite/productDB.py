@@ -30,6 +30,64 @@ def list(type): #type=1:코드순, 2:이름, 3:최저가, 4:최고가
     con.close()
     return rows
 
+def insert(p):
+    con=sqlite3.connect(db_name)
+    cur=con.cursor()
+    sql = 'insert into product(name, price) values(?,?)'
+    cur.execute(sql, (p.name, p.price,))
+    con.commit()
+    cur.close()
+    con.close()
+
+def read(code):
+    con = sqlite3.connect(db_name)
+    cur = con.cursor()
+    sql = 'select * from product where code=?'
+    cur.execute(sql, (code,))
+    row=cur.fetchone()
+    cur.close()
+    con.close()
+    return row
+
+def search(name):
+    con = sqlite3.connect(db_name)
+    cur = con.cursor()
+    sql = 'select * from product where name like ?'
+    cur.execute(sql, (f'%{name}%', ))
+    rows = cur.fetchall()
+    cur.close()
+    con.close()
+    return rows
+
+def search_test():
+    while True:
+        name = input('상품명>')
+        if name=='': break
+        rows = search(name)
+        for row in rows:
+            p = Product()
+            p.code = row[0]
+            p.name = row[1]
+            p.price = row[2]
+            p.print()
+def read_test():
+    code = int(input('상품코드>'))
+    row = read(code)
+    if row==None:
+        print('상품코드가 없습니다.')
+    else:    
+        p = Product()
+        p.code = row[0]
+        p.name = row[1]
+        p.price = row[2]
+        p.print()
+
+def insert_test():
+    p = Product()
+    p.name = input('상품이름>')
+    p.price = int(input('상품가격>'))
+    insert(p)
+
 def list_test(type):
     rows = list(type)
     for row in rows:
@@ -39,5 +97,7 @@ def list_test(type):
         p.price = row[2]
         p.print()
 
+
+
 if __name__=='__main__':
-    list_test(4)
+    search_test()
