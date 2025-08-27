@@ -36,9 +36,35 @@ def list():
         return list
     except Exception as err:
         print('목록 에러:', err)
+    finally:
+        cur.close()
+        con.close()
+
+def search(value):
+    try:
+        cur = con.cursor()
+        sql  ='select s.*, d.name as dname from student as s, dept as d where s.dept=d.code'
+        sql +=' and (s.name like ? or id like ? or dname like ?)'
+        value = f'%{value}%'
+        cur.execute(sql, (value, value, value,))
+        rows = cur.fetchall()
+        list=[]
+        for row in rows:
+            stu = Student()
+            stu.id = row[0]
+            stu.dept = row[1]
+            stu.name = row[2]
+            stu.dname = row[3]
+            list.append(stu)
+        return list
+    except Exception as err:
+        print('검색오류:', err)
+    finally:
+        pass
 
 if __name__=='__main__':
-    students = list()
+    value = input('검색어>')
+    students = search(value)
     if students!=None:
         for stu in students:
             stu.print()
