@@ -99,15 +99,17 @@ def listDept():
     except Exception as err:
         print('학과목록:', err)
 
-def inputDept():
+def inputDept(title, type):
     depts = listDept()
     for dept in depts:
         print(f'{dept.code}.{dept.dname}', end='|')    
     print()
     codes = [dept.code for dept in depts]
     while True:
-        code = input('학과코드>')
-        if code=='':
+        code = input(title)
+        if code=='' and type==5:
+            return ''
+        elif code=='' and type==1:
             print('학과코드는 반드시 입력하세요!')
         elif not code.isnumeric():
             print('학과코드는 숫자로 입력하세요!')
@@ -138,6 +140,14 @@ def delete(id):
         con.commit()
     except Exception as err:
         print('학생삭제오류:', err)
+
+def update(stu):
+    try:
+        sql = 'update student set name=?, dept=? where id=?'
+        cur.execute(sql, (stu.name, stu.dept, stu.id))
+        con.commit()
+    except Exception as err:
+        print('학생수정오류:',err)
 
 if __name__=='__main__':
     stu=read('2510')

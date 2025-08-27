@@ -20,7 +20,7 @@ while True:
                 continue
             else:
                 break
-        stu.dept = inputDept()
+        stu.dept = inputDept('학과코드>', 1)
         insert(stu)
         print('학생등록성공!')
     elif menu=='2':
@@ -52,6 +52,18 @@ while True:
                 delete(id)
                 print('학생삭제완료!')    
     elif menu=='5':
-        pass
+        id = input('학번>')
+        if id=='':continue
+        stu = read(id)
+        if stu==None:
+            print('수정할 학생이 없습니다.')
+            continue
+        stu.print()
+        name = input(f'이름:{stu.name}>')
+        if name != '':stu.name = name
+        dept = inputDept(f'학과코드:{stu.dept}>', 5)
+        if dept !='':stu.dept=dept
+        update(stu)
+        print('수정완료!')
     else:
         print('0~5번 메뉴를 선택하세요!')    
