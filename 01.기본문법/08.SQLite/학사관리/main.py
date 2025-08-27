@@ -6,6 +6,8 @@ while True:
     menu = input('메뉴선택>')
     if menu=='0':
         print('프로그램을 종료합니다.')
+        cur.close()
+        con.close()
         break
     elif menu=='1':
         stu = Student()
@@ -19,6 +21,9 @@ while True:
             else:
                 break
         while True:
+            depts = listDept()
+            for dept in depts:
+                print(f'{dept.code}.{dept.name}', end='|')
             stu.dept = inputNum('학과>')
             if stu.dept <1 or stu.dept >3:
                 print('학과코드는 1~3을 입력하세요!')

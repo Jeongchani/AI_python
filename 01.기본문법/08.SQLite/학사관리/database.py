@@ -1,8 +1,10 @@
+from function import *
 import os, sqlite3
 path = os.path.dirname(os.path.realpath(__file__))
 db_name = path + '/haksa.db'
 
 con = sqlite3.connect(db_name)
+cur = con.cursor()
 
 class Dept:
     def __init__(self):
@@ -19,9 +21,23 @@ class Student(Dept):
     def print(self):
         print(f'학번:{self.id}, 이름:{self.name}, 학과:{self.dname}({self.dept})')
 
+def listDept():
+    try:
+        sql = 'select * from dept'
+        cur.execute(sql)
+        rows = cur.fetchall()
+        list = []
+        for row in rows:
+            dept = Dept()
+            dept.code = row[0]
+            dept.name = row[1]
+            list.append(dept)
+        return list
+    except Exception as err:
+        print('학과목록:', err)
+
 def list():
     try:
-        cur = con.cursor()
         sql = 'select * from vstudent'
         cur.execute(sql)
         rows = cur.fetchall()
@@ -41,8 +57,7 @@ def list():
 
 def search(value):
     try:
-        cur = con.cursor()
-        sql  ='1select * from vstudent where name like ? or id like ? or dname like ?'
+        sql  ='select * from vstudent where name like ? or id like ? or dname like ?'
         value = f'%{value}%'
         cur.execute(sql, (value, value, value,))
         rows = cur.fetchall()
@@ -62,7 +77,6 @@ def search(value):
 
 def newID():
     try:
-        cur = con.cursor()
         sql ='select max(id)+1 from student'
         cur.execute(sql)
         row = cur.fetchone()
@@ -84,13 +98,22 @@ def insert(stu):
     finally:
         pass
 
+def inputDept():
+    depts = listDept()
+    for dept in depts:
+        print(f'{dept.code}.{dept.name}', end='|')
+    print()
+    while True:
+        code = inputNum(f'학과>')
+        if code=='':
+            print('학과코드는 꼭 입력하세요!')
+            continue
+        codes = [dept.code for dept in depts]
+        if codes.count(code) == 0:
+            print(f'{min(codes)}~{max(codes)} 숫자를 입력하세요!')
+        else:
+            return code
+    
 if __name__=='__main__':
-    stu = Student()
-    stu.id = newID()
-    print(f'학번:{stu.id}')
-    stu.name=input('이름>')
-    if stu.name=='':
-        print('이름을  반드시 입력하세요!')
-    else:
-        stu.dept = int(input('학과>'))
-    insert(stu)
+    code = inputDept()
+    
