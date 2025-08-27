@@ -22,7 +22,7 @@ class Student(Dept):
 def list():
     try:
         cur = con.cursor()
-        sql = 'select s.*, d.name as dname from student as s, dept as d where s.dept=d.code'
+        sql = 'select * from vstudent'
         cur.execute(sql)
         rows = cur.fetchall()
         list=[]
@@ -43,8 +43,7 @@ def list():
 def search(value):
     try:
         cur = con.cursor()
-        sql  ='select s.*, d.name as dname from student as s, dept as d where s.dept=d.code'
-        sql +=' and (s.name like ? or id like ? or dname like ?)'
+        sql  ='select * from vstudent where name like ? or id like ? or dname like ?'
         value = f'%{value}%'
         cur.execute(sql, (value, value, value,))
         rows = cur.fetchall()
