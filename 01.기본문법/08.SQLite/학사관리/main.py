@@ -20,25 +20,15 @@ while True:
                 continue
             else:
                 break
-        while True:
-            depts = listDept()
-            for dept in depts:
-                print(f'{dept.code}.{dept.name}', end='|')
-            stu.dept = inputNum('학과>')
-            if stu.dept <1 or stu.dept >3:
-                print('학과코드는 1~3을 입력하세요!')
-                continue
-            else:
-                break
+        stu.dept = inputDept()
         insert(stu)
         print('학생등록성공!')
-
     elif menu=='2':
         while True:
             value = input('검색어>')
             if value=='':break
             students = search(value)
-            if students==None:
+            if len(students)==0:
                 print('검색결과가 없습니다.')
                 continue
             for stu in students:
@@ -50,7 +40,17 @@ while True:
             stu.print()
         print(f'{len(students)}명 학생이 존재합니다.')    
     elif menu=='4':
-        pass
+        id = input('학번>')
+        if id=='':continue
+        stu = read(id)
+        if stu==None:
+            print('삭제할 학생이 없습니다.')
+        else:
+            stu.print()
+            sel = input('삭제하실래요(Y)>')
+            if sel=='Y' or sel=='y':
+                delete(id)
+                print('학생삭제완료!')    
     elif menu=='5':
         pass
     else:
