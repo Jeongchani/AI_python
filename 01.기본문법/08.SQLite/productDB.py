@@ -113,10 +113,13 @@ def delete_test():
     row = read(code)
     if row==None:
         print('상품코드가 없습니다.')
-    else:  
-        rowPrint(row)
+    else: 
+        print('삭제전')
+        rowPrint(row) 
         delete(code)
-        list_test(1)
+        print('삭제후')
+        #list_test(1)
+        
 
 def search_test():
     while True:
@@ -147,4 +150,5 @@ def list_test(type):
 
 
 if __name__=='__main__':
-    update_test()
+    delete_test()
+    list_test(1)
