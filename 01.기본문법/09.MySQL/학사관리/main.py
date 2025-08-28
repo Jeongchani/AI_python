@@ -1,7 +1,10 @@
 from function import *
 from db import *
+import os
+from dept import *
 
 while True:
+    os.system('cls')
     menuPrint('학사관리')
     menu=input('메뉴선택>')
     if menu=='0':
@@ -9,6 +12,8 @@ while True:
         con.close()
         print('프로그램을 종료합니다!')
         break
+    elif menu=='6':
+        menuDept()
     elif menu=='1':
         stu = Student()
         stu.id = newID()
@@ -51,6 +56,7 @@ while True:
             sel = input('삭제하실래요(Y)>')
             if sel=='Y' or sel=='y':
                 delete(id)
+        input('아무키나 누르세요!')
     elif menu=='5':
         id = input('학생번호>')
         stu = read(id)
@@ -63,5 +69,6 @@ while True:
             code = inputCode(f'학생코드:{stu.code}>', 5)
             if code !='':stu.code = code
             update(stu)
+        input('아무키나 누르세요!')    
     else:
         print('0~5번 숫자를 선택하세요!')

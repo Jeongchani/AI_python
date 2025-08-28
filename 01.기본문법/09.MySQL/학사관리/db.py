@@ -150,6 +150,30 @@ def update(stu):
     except Exception as err:
         print('학생수정오류:', err)
 
+#학과등록
+def insertDept(dname):
+    sql = 'insert into dept(dname) values(%s)'
+    cur.execute(sql, (dname))
+    con.commit()
+    print('학과등록완료!')
+
+#학과읽기
+def readDept(dcode):
+    sql = 'select * from dept where dcode=%s'
+    cur.execute(sql, (dcode))
+    row = cur.fetchone()
+    dept = Dept()
+    dept.dcode = row['dcode']
+    dept.dname = row['dname']
+    return dept
+
+#학과수정
+def updateDept(dept):
+    sql = 'update dept set dname=%s where dcode=%s'
+    cur.execute(sql, (dept.dname, dept.dcode))
+    con.commit()
+    print('학과수정완료!')
+
 if __name__=='__main__':
     id = input('학번>')
     stu = read(id)
