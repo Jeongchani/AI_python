@@ -141,6 +141,15 @@ def delete(id):
     except Exception as err:
         print('학생삭제오류:',err)
 
+def update(stu):
+    try:
+        sql = 'update student set name=%s, code=%s where id=%s'
+        cur.execute(sql, (stu.name, stu.code, stu.id))
+        con.commit()
+        print('학생수정완료!')
+    except Exception as err:
+        print('학생수정오류:', err)
+
 if __name__=='__main__':
     id = input('학번>')
     stu = read(id)

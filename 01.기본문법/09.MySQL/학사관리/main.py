@@ -52,6 +52,16 @@ while True:
             if sel=='Y' or sel=='y':
                 delete(id)
     elif menu=='5':
-        pass
+        id = input('학생번호>')
+        stu = read(id)
+        if stu==None:
+            print('수정할 학생이 없습니다!')
+        else:
+            stu.print()
+            name = input(f'학생이름:{stu.name}>')
+            if name!='':stu.name = name
+            code = inputCode(f'학생코드:{stu.code}>', 5)
+            if code !='':stu.code = code
+            update(stu)
     else:
         print('0~5번 숫자를 선택하세요!')
