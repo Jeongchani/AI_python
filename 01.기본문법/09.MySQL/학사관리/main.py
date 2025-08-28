@@ -10,7 +10,15 @@ while True:
         print('프로그램을 종료합니다!')
         break
     elif menu=='1':
-        pass
+        stu = Student()
+        stu.id = newID()
+        print(f'학생학번>{stu.id}')
+        stu.name = input('학생이름>')
+        if stu.name=='':
+            print('학생이름은 꼭 입력하세요!')
+            continue
+        stu.code = inputCode('학생학과>', 1)
+        insert(stu)
     elif menu=='2':
         while True:
             value = input('검색어>')

@@ -108,6 +108,21 @@ def inputCode(title, menu):
         else:
             return int(code)        
 
+def insert(stu):
+    try:
+        sql = 'insert into student(id, name, code) values(%s, %s, %s)'
+        cur.execute(sql, (stu.id, stu.name, stu.code))
+        con.commit()
+        print('학생등록완료!')
+    except Exception as err:
+        print('학생등록오류:', err)
+
+def read(id):
+    try:
+        pass
+    except Exception as err:
+        print('학생읽기오류:', err)
+
 if __name__=='__main__':
     code=inputCode('학과코드>', 1)
     print('입력한 학과코드', code)
