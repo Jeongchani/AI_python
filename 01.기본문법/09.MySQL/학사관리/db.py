@@ -86,11 +86,31 @@ def listDept():
     except Exception as err:
         print('학과목록:', err)
 
-if __name__=='__main__':
-    depts = listDept()
-    for dept in depts:
+#학과코드입력함수
+def inputCode(title, menu):
+    list = listDept()
+    codes = [dept.dcode for dept in list]
+    print('-' * 50)
+    for dept in list:
         print(f'{dept.dcode}.{dept.dname}', end='|')
     print()
     print('-' * 50)
-    #while True:
+    while True:
+        code = input(title)
+        if code=='' and menu==1:
+            print('학과코드는 꼭 입력하세요!')
+        elif code=='' and menu==5:
+            return code    
+        elif not code.isnumeric():
+            print('학과는 숫자로 입력하세요!')
+        elif codes.count(int(code))==0:
+            print(f'{codes} 코드번호를 입력하세요!')
+        else:
+            return int(code)        
+
+if __name__=='__main__':
+    code=inputCode('학과코드>', 1)
+    print('입력한 학과코드', code)
+
+        
         
