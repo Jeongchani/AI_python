@@ -62,14 +62,35 @@ def search(value):
     except Exception as err:
         print('학생검색오류:', err)
 
+def newID():
+    try:
+        sql = 'select convert(max(id)+1, char(4)) as new_id from student'
+        cur.execute(sql)
+        row = cur.fetchone()
+        return row['new_id']
+    except Exception as err:
+        print('새로운학번:', err)
+
+def listDept():
+    try:
+        sql = 'select * from dept'
+        cur.execute(sql)
+        rows = cur.fetchall()
+        list = []
+        for row in rows:
+            dept = Dept()
+            dept.dcode = row['dcode']
+            dept.dname = row['dname']
+            list.append(dept)
+        return list
+    except Exception as err:
+        print('학과목록:', err)
 
 if __name__=='__main__':
-    while True:
-        value = input('검색어>')
-        if value=='': break
-        students = search(value)
-        if len(students)==0:
-            print('검색학생이 없습니다.')
-        else:
-            for stu in students:
-                stu.print()
+    depts = listDept()
+    for dept in depts:
+        print(f'{dept.dcode}.{dept.dname}', end='|')
+    print()
+    print('-' * 50)
+    #while True:
+        
