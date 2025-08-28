@@ -119,13 +119,35 @@ def insert(stu):
 
 def read(id):
     try:
-        pass
+        sql = 'select * from vstudent where id=%s'
+        cur.execute(sql, (id))
+        row = cur.fetchone()
+        if row!=None:
+            stu = Student()
+            stu.id = row['id']
+            stu.name = row['name']
+            stu.code = row['code']
+            stu.dname = row['dname']
+            return stu
     except Exception as err:
         print('학생읽기오류:', err)
 
+def delete(id):
+    try:
+        sql = 'delete from student where id=%s'
+        cur.execute(sql, (id))
+        con.commit()
+        print('학생삭제완료!')
+    except Exception as err:
+        print('학생삭제오류:',err)
+
 if __name__=='__main__':
-    code=inputCode('학과코드>', 1)
-    print('입력한 학과코드', code)
+    id = input('학번>')
+    stu = read(id)
+    if stu==None:
+        print('학생이 없습니다.')
+    else:
+        stu.print()
 
         
         

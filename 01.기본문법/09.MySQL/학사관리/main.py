@@ -40,9 +40,17 @@ while True:
             students = list(key)
             for stu in students:
                 stu.print()
-
     elif menu=='4':
-        pass
+        id = input('학생번호>')
+        if id=='':continue
+        stu = read(id)
+        if stu==None:
+            print('삭제할 학생이 없습니다!')
+        else:
+            stu.print()
+            sel = input('삭제하실래요(Y)>')
+            if sel=='Y' or sel=='y':
+                delete(id)
     elif menu=='5':
         pass
     else:
