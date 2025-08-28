@@ -114,7 +114,7 @@ def inputDept(title, type):
         elif not code.isnumeric():
             print('학과코드는 숫자로 입력하세요!')
         elif codes.count(int(code))==0:
-            print(f'{min(codes)}~{max(codes)}번 코드를 입력하세요!')
+            print(f'{min(codes)}~{max(codes)} 코드번호를 입력하세요!')
         else:
             return int(code)  
 
@@ -144,15 +144,11 @@ def delete(id):
 def update(stu):
     try:
         sql = 'update student set name=?, dept=? where id=?'
-        cur.execute(sql, (stu.name, stu.dept, stu.id))
+        cur.execute(sql, (stu.name, stu.dept, stu.id,))
         con.commit()
     except Exception as err:
         print('학생수정오류:',err)
 
 if __name__=='__main__':
-    stu=read('2510')
-    if stu==None:
-        print('학생이 없습니다.')
-    else:    
-        stu.print()
+    code = inputDept('학과코드>', 1)
     
