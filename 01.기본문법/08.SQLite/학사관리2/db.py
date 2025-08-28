@@ -26,13 +26,8 @@ class Student(Dept):
 
 def list(key):
     try:
-        sql = 'select * from vstudent'
-        if key==1:
-            sql += ' order by id'
-        elif key==2:
-            sql += ' order by name'
-        elif key==3:
-            sql += ' order by code'          
+        keys=['id', 'name', 'dname']
+        sql = f'select * from vstudent order by {keys[key-1]}'         
         cur.execute(sql)
         rows = cur.fetchall()
         list = []
