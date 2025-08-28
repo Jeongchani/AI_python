@@ -6,6 +6,7 @@ con = pymysql.connect(
     password='1234',
     db='haksa',
     charset='utf8',
+    port=3306,
     cursorclass=pymysql.cursors.DictCursor)
 cur = con.cursor()
 
@@ -42,7 +43,33 @@ def list(key):
     except Exception as err:
         print('학생목록오류:', err)
 
+def search(value):
+    try:
+        sql = 'select * from vstudent where id like %s or name like %s or dname like %s'
+        value = f'%{value}%'
+        cur.execute(sql, (value, value, value))
+        rows = cur.fetchall()
+        if not rows==None:
+            list = []
+            for row in rows:
+                stu = Student()
+                stu.id = row['id']
+                stu.name = row['name']
+                stu.code = row['code']
+                stu.dname = row['dname']
+                list.append(stu)
+            return list
+    except Exception as err:
+        print('학생검색오류:', err)
+
+
 if __name__=='__main__':
-    list = list()
-    for stu in list:
-        stu.print()
+    while True:
+        value = input('검색어>')
+        if value=='': break
+        students = search(value)
+        if len(students)==0:
+            print('검색학생이 없습니다.')
+        else:
+            for stu in students:
+                stu.print()

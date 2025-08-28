@@ -12,7 +12,15 @@ while True:
     elif menu=='1':
         pass
     elif menu=='2':
-        pass
+        while True:
+            value = input('검색어>')
+            if value=='': break
+            students = search(value)
+            if len(students)==0:
+                print('검색학생이 없습니다.')
+            else:
+                for stu in students:
+                    stu.print()
     elif menu=='3':
         while True:
             key = inputNum('1.학번순|2.이름순|3.학과순>')
