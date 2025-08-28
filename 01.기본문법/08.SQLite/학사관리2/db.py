@@ -24,19 +24,28 @@ class Student(Dept):
         print(f'학번:{self.id}, 이름:{self.name}, 학과:{self.dname}({self.code})')
         print('-' * 50)    
 
-def list():
-    sql = 'select * from vstudent'
-    cur.execute(sql)
-    rows = cur.fetchall()
-    list = []
-    for row in rows:
-        stu = Student()
-        stu.id = row['id']
-        stu.name = row['name']
-        stu.dname = row['dname']
-        stu.code = row['code']
-        list.append(stu)
-    return list
+def list(key):
+    try:
+        sql = 'select * from vstudent'
+        if key==1:
+            sql += ' order by id'
+        elif key==2:
+            sql += ' order by name'
+        elif key==3:
+            sql += ' order by code'          
+        cur.execute(sql)
+        rows = cur.fetchall()
+        list = []
+        for row in rows:
+            stu = Student()
+            stu.id = row['id']
+            stu.name = row['name']
+            stu.dname = row['dname']
+            stu.code = row['code']
+            list.append(stu)
+        return list
+    except Exception as err:
+        print('학생목록오류:', err)
 
 if __name__=='__main__':
     list = list()
