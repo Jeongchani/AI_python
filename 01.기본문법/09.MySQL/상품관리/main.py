@@ -20,13 +20,19 @@ while True:
         print('프로그램을 종료합니다.')
         break
     elif menu=='1':
-        pro = Product()
-        pro.code = inputCode()
-        if pro.code=='':continue
-        pro.name = input('상품이름>')
-        pro.price = inputPrice('상품가격>')
-        if pro.price == '': pro.price=0
-        insert(pro)
+        code = inputCode('상품코드>')
+        if code=='':continue
+        product = read(code)
+        if product != None:
+            product.print()
+            print('이미 등록된 상품입니다.')
+        else:
+            pro = Product()
+            pro.code=code
+            pro.name = input('상품이름>')
+            pro.price = inputPrice('상품가격>')
+            if pro.price == '': pro.price=0
+            insert(pro)
         input('아무키나 누르세요!')
     elif menu=='2':
         while True:
@@ -44,16 +50,22 @@ while True:
             product.print()
         input('아무키나 누르세요!')
     elif menu=='4':
-        code = input('상품코드>')
-        product = read(code)
-        if product==None:
-            print('수정할 상품이 없습니다.')
+        code = inputCode('상품코드>')
+        if code=='': continue
+        pro = read(code)
+        if pro==None:
+            print('등록되지 않은 상품입니다.')
         else:
-            name = input(f'상품이름:{product.name}>')
-            if name != '': product.name=name
-            price = inputPrice(f'상품가격:{product.price}>')
-            if price!= '': product.price=price
-            update(product)
+            name=input(f'상품이름:{pro.name}>')
+            if name !='': pro.name=name
+            price=inputPrice(f'상품가격:{pro.price:,}원>')
+            if price !='': pro.price=price
+            pro.print()
+            sel = input('수정하실래요(Y)>')
+            if sel=='Y' or sel=='y':
+                update(pro)
+            else:
+                print('수정이 취소되었습니다!')
         input('아무키나 누르세요!')
     elif menu=='5':
         input('아무키나 누르세요!')

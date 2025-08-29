@@ -45,8 +45,8 @@ def search(value):
 
 def read(code):
     try:
-        sql = f'select * from product where code={code}'
-        cur.execute(sql)
+        sql = 'select * from product where code=%s'
+        cur.execute(sql, (code))
         row = cur.fetchone()
         if row != None:
             product = Product()
@@ -57,21 +57,16 @@ def read(code):
     except Exception as err:
         print('상품읽기오류:', err)
 
-def inputCode():
+def inputCode(title):
     while True:
-        code = input('상품코드>')
+        code = input(title)
         if code=='': return code
         if len(code) !=3:
             print('상품코드는 3자리로 입력하세요!')
         elif not code.isnumeric():
             print('상품코드는 숫자로 입력하세요!')
         else:
-            pro = read(code)
-            if pro != None:
-                pro.print()
-                print('이미 등록된 상품입니다.')
-            else:
-                return code
+            return code
             
 def inputPrice(title):
     while True:

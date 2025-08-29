@@ -1,9 +1,9 @@
 import pymysql
 
 con = pymysql.connect(
-    host='localhost',
-    user='root',
-    password='1234',
+    host='192.168.0.28',
+    user='web',
+    password='pass',
     db = 'shop',
     charset='utf8',
     cursorclass=pymysql.cursors.DictCursor,
