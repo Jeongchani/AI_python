@@ -13,12 +13,12 @@ def menuDept():
         if menu=='0':
             break
         elif menu=='3':
-            dcode = inputCode('학과코드>', 1)
+            dcode = inputCode('학과코드>', 5)
             dept = readDept(dcode)
             dname = input(f'학과이름:{dept.dname}>')
             if dname!='': dept.dname=dname
             updateDept(dept)
-            
+
         elif menu=='1':
             dname = input('학과이름>')
             if dname=='':continue
