@@ -77,6 +77,17 @@ def inputPrice(title):
             print('가격은 숫자로 입력하세요!')
         else:
             return int(price)
+        
+#숫자 입력 함수
+def inputNum(title):
+    while True:
+        str = input(title)
+        if str.isnumeric():
+            return int(str)
+        elif str=="":
+            return str
+        else:
+            print("숫자로 입력하세요!")
 
 def update(product):
     try:

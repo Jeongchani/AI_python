@@ -1,5 +1,6 @@
 import os
 from product import *
+from sub import *
 
 while True:
     os.system('cls')
@@ -68,6 +69,6 @@ while True:
                 print('수정이 취소되었습니다!')
         input('아무키나 누르세요!')
     elif menu=='5':
-        input('아무키나 누르세요!')
+        saleMenu()
     else:
         print('[0]~[5]번 메뉴를 선택하세요!')                                
