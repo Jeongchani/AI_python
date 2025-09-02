@@ -1,15 +1,30 @@
 import requests
 from bs4 import BeautifulSoup
 
-url ='https://www.naver.com/'
+url='https://www.naver.com/'
 res = requests.get(url)
-soup = BeautifulSoup(res.text, 'lxml')
 
+soup = BeautifulSoup(res.text, 'lxml')
 title = soup.title
-print(1, title.get_text())
+
+print(1, title)
+print(2, title.getText())
+
+title = soup.find('title')
+print(3, title)
 
 a = soup.a
-print(2, a)
-print(3, a.span.get_text())
-print(4, a.attrs)
-print(5, a['href'])
+print(4, a)
+
+span = a.span
+print(5, span.getText())
+
+attrs = a.attrs
+print(6, attrs, type(attrs))
+
+href = a['href']
+print(7, href)
+
+items = soup.find_all('a')
+for item in items:
+    print(item.span.getText())

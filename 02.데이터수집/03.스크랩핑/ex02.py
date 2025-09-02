@@ -1,18 +1,26 @@
 import requests
 from bs4 import BeautifulSoup
 
-#[네이버]-[네이버 증권]-[Top 종목]-[거래상위]
 url='https://finance.naver.com/'
 res = requests.get(url)
-
 soup = BeautifulSoup(res.text, 'lxml')
-items = soup.find('tbody', attrs={'id':'nxt_topItems1'})
 
-ranks = items.find_all('tr')
-print(1, len(ranks))
+#[Top종목]-[거래상위]
+tbody = soup.find('tbody', attrs={'id':'_topItems1'})
+trs = tbody.find_all('tr')
 
-for index, rank in enumerate(ranks):
-    td = rank.find_all('td')
-    price = td[0].get_text()
-    up_down=td[2].get_text().strip()
-    print(index+1, rank.a.get_text(), price, up_down)
+list = []
+for idx, tr in enumerate(trs):
+    up_down = tr['class']
+    name = tr.a.getText()
+    tds = tr.find_all('td')
+    price = tds[0].getText()
+    up_down_price=tds[1].getText().replace('하락','').replace('상승','').strip()
+    #print(idx+1, name, price, up_down[0], up_down_price)
+    list.append(f'{idx+1},{name},{price},{up_down[0]},{up_down_price}')
+print(list)
+
+file_name = 'data/거래상위.txt'
+with open(file_name, 'w', encoding='utf-8') as file:
+    for line in list:
+        file.write(line + '\n')
