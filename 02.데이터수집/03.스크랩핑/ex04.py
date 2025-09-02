@@ -6,6 +6,9 @@ import re
 file_name ='data/시가총액1~200.csv'
 file = open(file_name, 'w', encoding='utf-8-sig', newline='')
 writer = csv.writer(file)
+title='N	종목명	현재가	전일비	등락률	액면가	시가총액	상장주식수	외국인비율	거래량	PER	ROE	토론'
+title = title.split('\t')
+writer.writerow(title)
 
 #[시가총액 순위]-[더보기]-[코스피] 1~200
 for page in range(1, 5):
