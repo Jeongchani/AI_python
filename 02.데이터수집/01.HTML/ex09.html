@@ -17,7 +17,12 @@
 </head>
 <body>
     <div class="container p-5">
-        <h1 class="text-center">지마켓</h1>
+        <h1 class="text-center my-5">지마켓</h1>
+        <div class="mb-3">
+            <button class="btn btn-danger px-5">노트북</button>
+            <button class="btn btn-primary">컴퓨터</button>
+            <button class="btn btn-success">키보드</button>
+        </div>
         <div id="product" class="row"></div>
         <script id="temp" type="x-handlebars-template">
             {{#each .}}
