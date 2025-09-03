@@ -19,5 +19,7 @@ rows = table.find_all('tr')
 for row in rows:
     cols = row.find_all('td')
     if len(cols) <=1 :continue
-    data = [re.sub('\t|\n|하락|상승|보합','', col.getText()) for col in cols]
+    data = [re.sub('\t|\n|상승|하락|보합','', col.getText()) for col in cols]
+    print(data)
+    break
     writer.writerow(data)
