@@ -30,6 +30,7 @@ for idx, item in enumerate(items):
     price=item.find('strong', {'class':'text text__value'}).getText()
     image='https:' + item.find('img', {'class':'image__item'})['src']
     pay_count = item.find('li', {'class':re.compile('list-item__pay-count$')})
+    link = item.a['href']
     if pay_count:
         pay_count=re.sub('구매|건|,','',pay_count.getText()).strip()
         pay_count=int(pay_count)
@@ -38,7 +39,7 @@ for idx, item in enumerate(items):
     if pay_count >=100:
         cnt += 1
         print(cnt, title, price, image, f'구매건수:{pay_count}')
-        data = {'no':cnt, 'title':title, 'price':price, 'count':pay_count, 'image':image}
+        data = {'no':cnt, 'title':title, 'price':price, 'count':pay_count, 'image':image, 'link':link}
         list.append(data)
 
 with open('data/gmarket.json', 'w', encoding='utf-8') as file:
