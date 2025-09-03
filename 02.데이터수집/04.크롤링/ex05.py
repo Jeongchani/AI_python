@@ -16,13 +16,27 @@ browser.get(url)
 
 
 browser.execute_script('window.scrollTo(0, document.body.scrollHeight)')
-time.sleep(5)
+time.sleep(2)
 
 from bs4 import BeautifulSoup
 soup = BeautifulSoup(browser.page_source, 'lxml')
+import re
 
 items = soup.find_all('div', attrs={'class':'box__item-container'})
-print(len(items))
+cnt = 0
+for idx, item in enumerate(items):
+    title=item.find('span', {'class':'text__item'}).getText()
+    price=item.find('strong', {'class':'text text__value'}).getText()
+    image='https:' + item.img['src']
+    pay_count = item.find('li', {'class':re.compile('list-item__pay-count$')})
+    if pay_count:
+        pay_count=re.sub('구매|건|,','',pay_count.getText()).strip()
+        pay_count=int(pay_count)
+    else:
+        pay_count=0
+    if pay_count >=100:
+        cnt += 1
+        print(cnt, title, price, image, f'구매건수:{pay_count}')
 
 browser.quit()
 print('프로그램종료!')
