@@ -20,14 +20,15 @@ time.sleep(2)
 
 from bs4 import BeautifulSoup
 soup = BeautifulSoup(browser.page_source, 'lxml')
-import re
+import re, json
 
 items = soup.find_all('div', attrs={'class':'box__item-container'})
 cnt = 0
+list = []
 for idx, item in enumerate(items):
     title=item.find('span', {'class':'text__item'}).getText()
     price=item.find('strong', {'class':'text text__value'}).getText()
-    image='https:' + item.img['src']
+    image='https:' + item.find('img', {'class':'image__item'})['src']
     pay_count = item.find('li', {'class':re.compile('list-item__pay-count$')})
     if pay_count:
         pay_count=re.sub('구매|건|,','',pay_count.getText()).strip()
@@ -37,6 +38,11 @@ for idx, item in enumerate(items):
     if pay_count >=100:
         cnt += 1
         print(cnt, title, price, image, f'구매건수:{pay_count}')
+        data = {'no':cnt, 'title':title, 'price':price, 'count':pay_count, 'image':image}
+        list.append(data)
+
+with open('data/gmarket.json', 'w', encoding='utf-8') as file:
+    json.dump(list, file, indent='\t', ensure_ascii=False)
 
 browser.quit()
 print('프로그램종료!')
