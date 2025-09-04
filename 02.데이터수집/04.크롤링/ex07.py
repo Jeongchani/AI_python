@@ -15,10 +15,11 @@ browser.get(url)
 soup = BeautifulSoup(browser.page_source, 'lxml')
 local = soup.find('div', {'id':'weather2'})
 els = local.find_all('dl', {'class':re.compile('^po_')})
+
 print(date)
-for el in els:
+for idx, el in enumerate(els):
     name=el.dt.getText()
     temp=el.span.getText()
     weather=el.i.getText()
-    print(name, temp, weather)
+    print(idx+1, name, temp, weather)
     print('-' * 30)
