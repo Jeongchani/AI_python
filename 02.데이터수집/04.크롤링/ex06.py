@@ -54,14 +54,16 @@ el.click()
 time.sleep(2)
 
 try:
-    first = '//*[@id="__next"]/div/main/div[4]/div/div[2]/div[2]/div[1]'
-    wait_until(first)
-    #el = browser.find_element(By.XPATH, first)
-    #print(el.text)
-    els = browser.find_elements(By.CLASS_NAME, 'domestic_Flight__8bR_b')
-    for idx, el in enumerate(els):
-        print(f'[{idx}] {el.text}')
-        print('-' * 50)
+    with open('data/flight.txt', 'w', encoding='utf-8') as file:
+        first = '//*[@id="__next"]/div/main/div[4]/div/div[2]/div[2]/div[1]'
+        wait_until(first)
+        els = browser.find_elements(By.CLASS_NAME, 'domestic_Flight__8bR_b')
+        for idx, el in enumerate(els):
+            #print(f'[{idx}] {el.text}')
+            #print('-' * 50)
+            file.write(f'[{idx}] {el.text}\n')
+            file.write('-' * 50)
+            file.write('\n')
 except:
     pass
 finally:
