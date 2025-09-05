@@ -8,10 +8,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>        
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>도서검색</title>
+    <style>
+        * {
+            font-family: "Jua", sans-serif;
+        }
+    </style>    
 </head>
 <body>
-    
+    <div class="container p-5">
+        <h1 class="text-center">도서검색</h1>
+        <div id="books" class="row"></div>
+        <script id="temp" type="x-handlebars-template">
+            {{#each documents}}
+                <div class="col-6 col-md-3 col-lg-2 mb-2">
+                    <img src="{{thumbnail}}" width="100%">
+                </div>    
+            {{/each}}
+        </script>
+    </div>
 </body>
 <script>
     const page=1;
@@ -25,11 +40,18 @@
             headers:{'Authorization':'KakaoAK 4a8e1acc493134e630bb6e1dd8deb6eb'},
             data:{page, query, size},
             success:function(data){
-                console.log(data)
+                console.log(data);
+                //1.템플릿 컴파일
+                temp = Handlebars.compile($("#temp").html());
+                //2.템플릿에 데이터 넣기
+                temp_data = temp(data);
+                //3. 2번을 아이디 books에 넣기
+                $("#books").html(temp_data);
             }
         });
     }
 
     getBooks()
+
 </script>
 </html>
