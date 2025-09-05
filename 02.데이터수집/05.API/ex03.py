@@ -21,7 +21,6 @@ def createMap(list, address):
     x =list[0]['x']
     location=(y, x)
     map = folium.Map(location, zoom_start=15, width='100%', height='100%')
-
     for store in list:
         location=(store['y'], store['x'])
         text = f'{store["name"]}<br>{store["phone"]}<br>{store["address"]}'
