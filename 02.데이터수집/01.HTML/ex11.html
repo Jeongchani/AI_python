@@ -13,6 +13,9 @@
         * {
             font-family: "Jua", sans-serif;
         }
+        .box {
+            box-shadow: 5px 5px 5px gray;
+        }
     </style>    
 </head>
 <body>
@@ -21,8 +24,10 @@
         <div id="books" class="row"></div>
         <script id="temp" type="x-handlebars-template">
             {{#each documents}}
-                <div class="col-6 col-md-3 col-lg-2 mb-2">
+                <div class="col-6 col-md-3 col-lg-2 mb-2 box p-2">
                     <img src="{{thumbnail}}" width="100%">
+                    <div class="text-truncate">{{title}}</div>
+                    <div>{{sale_price}}</div>
                 </div>    
             {{/each}}
         </script>
