@@ -5,6 +5,16 @@ file_name = 'c:/python/03.데이터분석/data/학생성적.csv'
 score = pd.read_csv(file_name)
 cols = score.columns
 
+def inputNum(title):
+    while True:
+        num = input(title)
+        if num=='':
+            return ''
+        elif not num.isnumeric():
+            print('점수는 숫자로입력하세요.')
+        else:
+            return int(num)
+        
 while True:
     os.system('cls')
     print('-' * 50)
@@ -16,12 +26,19 @@ while True:
     if menu=='0':
         break
     elif menu=='1':#등록
-        index = max(score.index)+1
+        index = max(score.index)+1 #저장할 index번호
         no = score['지원번호'].max()+1
         grade=[]
-        for col in cols:
-            num = input(f'{col}>')
-            
+        for idx, col in enumerate(cols):
+            if idx==0:
+                print(f'지원번호>{no}')
+            else:    
+                num = inputNum(f'{col}>')
+                if num=='': num=0
+                grade.append(num)
+        score.loc[index]=[no, grade[0], grade[1], grade[2], grade[3], grade[4]]
+        score.to_csv(file_name, index=False)
+        print('등록성공!')
         input('아무키나 누르세요!')
     elif menu=='2': #목록
         for idx in range(len(score)):
