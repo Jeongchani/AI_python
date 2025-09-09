@@ -1,13 +1,14 @@
 import os
 import pandas as pd
-score_name = 'data/학생성적.csv'
+score_name = 'c:/python/03.데이터분석/data/학생성적.csv'
 score = pd.read_csv(score_name)
+cols = score.columns
 
 def inputNum(title):
     while True:
         num = input(title)
         if num=='':
-            return 0
+            return ''
         elif not num.isnumeric():
             print('점수는 숫자로입력하세요.')
         else:
@@ -24,36 +25,68 @@ while True:
         break
     elif menu=='1': #등록
         idx = len(score)
-        no = f'{idx+1}번'
+        no = score['지원번호'].max()+1
         print(f'지원번호>{no}')
-        num1 = inputNum('국어>')
-        num2 = inputNum('영어>')
-        num3 = inputNum('수학>')
-        num4 = inputNum('과학>')
-        num5 = inputNum('사회>')
-        score.loc[idx]=[no, num1, num2, num3, num4, num5]
+        grade=[]
+        for index, col in enumerate(cols):
+            if index==0: continue
+            num = inputNum(col + '>')
+            if num=='': num=0
+            grade.append(num)
+        score.loc[idx]=[no, grade[0], grade[1], grade[2], grade[3], grade[4]]
         score.to_csv(score_name, index=False)
-        input('아무키나 누르세요!')
+        print('등록완료!')
+        input('아무키나 누르세요!') 
     elif menu=='2':
-        print(score)
+        score = pd.read_csv(score_name)
+        cols = score.columns
+        for idx in range(len(score)):
+            row = score.loc[idx]
+            for col in cols:
+                print(f'{col}:{row[col]} ' , end='')
+            print()    
         input('아무키나 누르세요!') 
     elif menu=='3':
+        for index, col in enumerate(cols):
+            print(f'{index}.{col}', end='|')
+        input('>')
         input('아무키나 누르세요!')   
     elif menu=='4': #삭제
-        idx = input('삭제번호>')
-        idx = idx + '번'
+        idx = input('지원번호>')
+        idx = int(idx)
         filt = score['지원번호']==idx
         search = score[filt].index
         if len(search)==0:
             print('삭제할 지원자가 없습니다.')
         else:
-            print(score[filt])
+            row=score[filt].loc[search[0]]
+            for col in cols:
+                print(f'{col}:{row[col]}')
             sel = input('삭제하실래요(Y)>')
             if sel=='Y' or sel=='y':
-                score.drop(index=search, inplace=True)
+                score.drop(index=search[0], inplace=True)
                 score.to_csv(score_name, index=False)
+                print('삭제완료!')
         input('아무키나 누르세요!')
     elif menu=='5':
+        idx = input('지원번호>')
+        idx = int(idx)
+        filt = score['지원번호']==idx
+        search = score[filt].index
+        if len(search)==0:
+            print('수정할 지원자가 없습니다.')
+        else:
+            row=score[filt].loc[search[0]]
+            grade = []
+            for index, col in enumerate(cols):
+                if index==0: continue
+                num=inputNum(f'{col}:{row[col]}>')
+                if num=='':
+                    num=row[col]
+                grade.append(num)
+            score.loc[search[0]]=[idx, grade[0], grade[1], grade[2], grade[3], grade[4]]
+            score.to_csv(score_name, index=False)
+            print('수정완료!')
         input('아무키나 누르세요!')
     else:
         input('0~5번을 누르세요!')            
