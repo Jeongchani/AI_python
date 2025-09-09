@@ -16,6 +16,7 @@ def inputNum(title):
             return int(num)
         
 while True:
+    score = pd.read_csv(file_name)
     os.system('cls')
     print('-' * 50)
     print('**************** 성 적 관 리 *****************')
@@ -47,9 +48,36 @@ while True:
                 print(f'{col}:{row[col]}', end=' ')
             print()
         input('아무키나 누르세요!')
-    elif menu=='3':
-        input('아무키나 누르세요!')
-    elif menu=='4':
+    elif menu=='3': #검색
+        while True:
+            no = inputNum('지원번호>')
+            if no == '':break
+            filt = score['지원번호']==no
+            idxs = score[filt].index
+            if len(idxs)==0:
+                print('해당 지원번호가 없습니다!')
+            else:
+                row = score.loc[idxs[0]]
+                for col in cols:
+                    print(f'{col}:{row[col]}', end=' ')
+                print()
+    elif menu=='4':#삭제
+        no = inputNum('지원번호>')
+        filt = score['지원번호'] == no
+        idx = score[filt].index
+        if len(idx)==0:
+            print('해당 지원번호가 없습니다!')
+        else:
+            row = score.loc[idx[0]]
+            for col in cols:
+                print(f'{col}:{row[col]}', end=' ')
+            print()
+            sel = input('삭제하실래요(Y)>')
+            if sel=='Y' or sel=='y':
+                score.drop(index=idx[0], inplace=True)
+                score.to_csv(file_name, index=False)
+                print('삭제완료!')
+
         input('아무키나 누르세요!')
     elif menu=='5':
         input('아무키나 누르세요!')
