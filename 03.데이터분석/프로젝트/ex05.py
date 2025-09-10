@@ -77,9 +77,27 @@ def submenu():
                     score.drop(index=no, inplace=True)
                     score.to_csv(file_score)
                     print('삭제완료!')
-
             input('아무키나 누르세요!')
-        elif menu=='5':
+        elif menu=='5': #수정
+            no = inputNum('지원번호>')
+            if not no in info.index:
+                print('등록된 지원번호가 아닙니다.')
+            elif not no in score.index:
+                print('등록된 성적이 없습니다.')
+            else:
+                row = score.loc[no]
+                print(f'이름>{info.loc[no, "이름"]}')
+                grade=[]
+                for col in cols:
+                    num = inputNum(f'{col}:{row[col]}>')
+                    if num=='':num = row[col]
+                    grade.append(num)
+                sel = input('정말로 수정하실래요(Y)>')
+                if sel=='Y' or sel=='y':
+                    score.loc[no] = grade
+                    score.to_csv(file_score)
+                    print('수정완료!')
+                    
             input('아무키나 누르세요!')
         else:
             input('0~5번 숫자를 입력하세요!')
