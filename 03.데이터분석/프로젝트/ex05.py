@@ -31,21 +31,23 @@ def submenu():
         menu = input('메뉴선택>')
         if menu=='0':
             break
-        elif menu=='1':
+        elif menu=='1': #등록
             no = inputNum('지원번호>')
             if not no in info.index:
-                print('등록된 지원번호가 없습니다.')
+                print('등록되지 않은 지원번호입니다.')
             elif no in score.index:
-                print('이미 성적을 입력했습니다.')
+                print('이미 성적이 등록되었습니다.')
             else:
+                row = info.loc[no]
+                print(f'이름:{row["이름"]}')
                 grade=[]
                 for col in cols:
                     num = inputNum(f'{col}>')
                     if num=='': num=0
                     grade.append(num)
-                score.loc[no]=grade
+                score.loc[no] = grade
                 score.to_csv(file_score)
-                print('등록완료!')
+                print('등록완료!')    
             input('아무키나 누르세요!')
         elif menu=='2': #목록
             for idx in df.index:
@@ -56,7 +58,6 @@ def submenu():
                     print(f'{col}:{row[col]:.0f}', end=' ')
                 print()
                 print('-' * 60)
-
             input('아무키나 누르세요!')
         elif menu=='3':
             input('아무키나 누르세요!')
