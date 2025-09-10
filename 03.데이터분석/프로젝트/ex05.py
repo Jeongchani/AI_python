@@ -52,7 +52,7 @@ def submenu():
         elif menu=='2': #목록
             for idx in df.index:
                 row = df.loc[idx]
-                print(f'지원번호:{idx}', end=' ')
+                print(f'지원번호:{idx:02d}', end=' ')
                 print(f'이름:{row["이름"]}', end=' ')
                 for col in cols:
                     print(f'{col}:{row[col]:.0f}', end=' ')
@@ -61,7 +61,23 @@ def submenu():
             input('아무키나 누르세요!')
         elif menu=='3':
             input('아무키나 누르세요!')
-        elif menu=='4':
+        elif menu=='4':#삭제
+            no = inputNum('지원번호>')
+            if not no in info.index:
+                print('등록된 지원번호가 아닙니다.')
+            elif not no in score.index:
+                print('등록된 성적이 없습니다.')
+            else:
+                row = df.loc[no]
+                print(f'이름:{row["이름"]}')
+                for col in cols:
+                    print(f'{col}:{row[col]}')
+                sel=input('정말로 삭제하실래요(Y)>')
+                if sel=='Y' or sel=='y':
+                    score.drop(index=no, inplace=True)
+                    score.to_csv(file_score)
+                    print('삭제완료!')
+
             input('아무키나 누르세요!')
         elif menu=='5':
             input('아무키나 누르세요!')
