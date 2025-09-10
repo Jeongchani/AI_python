@@ -74,6 +74,19 @@ def submenu():
                     else:
                         row = df.loc[no]
                         print(f'지원번호:{no} 이름:{row["이름"]} 학교:{row["학교"]} 평균:{row["평균"]:.2f}')
+                elif sel==2:
+                    word = input('검색어>')
+                    filt = df['학교'].str.contains(word)
+                    for idx in df[filt].index:
+                        row = df.loc[idx]
+                        print(f'지원번호:{idx} 이름:{row["이름"]} 학교:{row["학교"]} 평균:{row["평균"]:.2f}')
+                elif sel==3:
+                    word = input('검색어>')
+                    filt = df['이름'].str.contains(word)
+                    for idx in df[filt].index:
+                        row = df.loc[idx]
+                        print(f'지원번호:{idx} 이름:{row["이름"]} 학교:{row["학교"]} 평균:{row["평균"]:.2f}')
+
             input('아무키나 누르세요!')
         elif menu=='4':#삭제
             no = inputNum('지원번호>')
