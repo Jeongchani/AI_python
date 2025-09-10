@@ -19,6 +19,9 @@ def submenu():
         score = pd.read_csv(file_score, index_col='지원번호')
         info = pd.read_csv(file_info, index_col='지원번호')
         df = info.join(score)
+        df['총점'] = df.apply(lambda x: sum(x['국어':'사회']), axis=1)
+        df['평균'] = df['총점']/5
+
         df.fillna(0, inplace=True)
         cols = ['국어', '영어', '수학', '사회', '과학']
 
@@ -59,7 +62,18 @@ def submenu():
                 print()
                 print('-' * 60)
             input('아무키나 누르세요!')
-        elif menu=='3':
+        elif menu=='3':#검색
+            while True:
+                sel = inputNum('1.지원번호|2.학교|3.이름>')
+                if sel=='':
+                    break
+                elif sel==1:
+                    no = inputNum('지원번호>')
+                    if not no in df.index:
+                        print('해당 지원번호가 없습니다.')
+                    else:
+                        row = df.loc[no]
+                        print(f'지원번호:{no} 이름:{row["이름"]} 학교:{row["학교"]} 평균:{row["평균"]:.2f}')
             input('아무키나 누르세요!')
         elif menu=='4':#삭제
             no = inputNum('지원번호>')
@@ -97,7 +111,7 @@ def submenu():
                     score.loc[no] = grade
                     score.to_csv(file_score)
                     print('수정완료!')
-                    
+
             input('아무키나 누르세요!')
         else:
             input('0~5번 숫자를 입력하세요!')
