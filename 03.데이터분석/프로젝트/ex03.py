@@ -5,6 +5,21 @@ file_name = 'c:/python/03.데이터분석/data/학생성적.csv'
 score = pd.read_csv(file_name)
 cols = score.columns
 
+def sort_list():
+    while True:
+        score = pd.read_csv(file_name)
+        for idx, col in enumerate(cols):
+            print(f'{idx}:{col}', end='|')
+        print()
+        sel = inputNum('선택>')
+        if sel=='': break
+        score=score.sort_values(cols[sel], ascending=False)
+        for idx in score.index:
+            row = score.loc[idx]
+            for col in cols:
+                print(f'{col}:{row[col]}', end=' ')
+            print()
+
 def inputNum(title):
     while True:
         num = input(title)
@@ -42,11 +57,7 @@ while True:
         print('등록성공!')
         input('아무키나 누르세요!')
     elif menu=='2': #목록
-        for idx in range(len(score)):
-            row = score.loc[idx]
-            for col in cols:
-                print(f'{col}:{row[col]}', end=' ')
-            print()
+        sort_list()
         input('아무키나 누르세요!')
     elif menu=='3': #검색
         while True:
@@ -77,9 +88,26 @@ while True:
                 score.drop(index=idx[0], inplace=True)
                 score.to_csv(file_name, index=False)
                 print('삭제완료!')
-
         input('아무키나 누르세요!')
-    elif menu=='5':
+    elif menu=='5':#수정
+        no = inputNum('지원번호>')
+        idx = score[score['지원번호']==no].index
+        if len(idx)==0:
+            print('해당 지원번호가 없습니다!')
+        else:
+            row = score.loc[idx[0]]
+            grade=[]
+            for index, col in enumerate(cols):
+                if index==0:continue
+                num = inputNum(f'{col}:{row[col]}>')
+                if num=='':
+                    num = row[col]
+                grade.append(num)
+            sel = input('수정하실래요(Y)>')
+            if sel=='Y' or sel=='y':
+                score.loc[idx[0]]=[no, grade[0],grade[1],grade[2],grade[3],grade[4]]
+                score.to_csv(file_name, index=False)
+                print('수정완료!')
         input('아무키나 누르세요!')
     else:
         input('0~5번 메뉴를 선택하세요!')
