@@ -50,6 +50,15 @@ def stu_list():
         print(idx + 1, row['학생번호'], row['학생이름'], row['학생학과'], row['교수이름'], end=' ')
         print(row['생년월일'], row['학년'])
 
+def cou_list():
+    cou = pd.read_csv('강좌.csv')
+    pro = pd.read_csv('교수.csv')
+    merge = cou.merge(pro, left_on='담당교수', right_on='교수번호')
+    merge = merge.sort_values('강좌이름')
+    for idx, row in merge.iterrows():
+        print(idx + 1, row['강좌번호'], row['강좌이름'], row['강의실'], row['교수이름'], end=' ')
+        print(row['강의시수'])
+
 def stu_search(code):
     stu = pd.read_csv('학생.csv', index_col='학생번호')
     pro = pd.read_csv('교수.csv', index_col='교수번호')
@@ -74,6 +83,34 @@ def stu_search(code):
     for idx, row in enroll_rows.iterrows():
         cou_row = cou.loc[idx]
         print(idx, cou_row['강좌이름'], row['신청일'], row['점수'])
+        sum += row['점수']
+    avg = sum/len(enroll_rows)
+    print(f'평균:{avg:.2f}\n')
+
+def cou_search(code):
+    stu = pd.read_csv('학생.csv', index_col='학생번호')
+    pro = pd.read_csv('교수.csv', index_col='교수번호')
+    enroll = pd.read_csv('수강.csv', index_col=['강좌번호', '학생번호'])
+    enroll.fillna(0, inplace=True)
+    cou = pd.read_csv('강좌.csv', index_col='강좌번호')
+    
+    if not code in cou.index:
+        print('해당 학번이 존재하지 않습니다.')
+        return
+    
+    cou_row = cou.loc[code]
+    advisor = cou_row['담당교수']
+    pro_row = pro.loc[advisor]
+    print(cou_row['강좌이름'],cou_row['강의실'], pro_row['교수이름'])
+    
+    print('\n수강학생')
+    print('-' * 50)
+    enroll_rows = enroll.loc[code]
+
+    sum = 0
+    for idx, row in enroll_rows.iterrows():
+        stu_row = stu.loc[idx]
+        print(idx, stu_row['학생이름'], row['신청일'], row['점수'])
         sum += row['점수']
     avg = sum/len(enroll_rows)
     print(f'평균:{avg:.2f}\n')
@@ -110,3 +147,11 @@ while True:
             code = inputNum('학생번호>') #92414033
             if code=='': break
             stu_search(code)
+    elif menu=='5':
+        cou_list()
+        input('아무키나 누르세요!')
+    elif menu=='6':
+        while True:
+            code = input('강좌번호>') #c401
+            if code=='': break
+            cou_search(code.upper())
