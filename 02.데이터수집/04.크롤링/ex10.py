@@ -26,22 +26,22 @@ print('매장이름', name)
 print('매장주소', address)
 print('매장전화', phone)
 
-#사진
-import requests
-import os
-path ='data/store'
-if not os.path.exists(path):
-    os.mkdir(path)
+# #사진
+# import requests
+# import os
+# path ='data/store'
+# if not os.path.exists(path):
+#     os.mkdir(path)
 
-imgs = soup.select('div.slick-slide > img')
-for img in imgs:
-    src = 'https://www.coffeebeankorea.com/' + img.attrs['src']
-    print(src)
-    index = src.rindex('/')
-    file_name = src[index:]
-    print(file_name)
+# imgs = soup.select('div.slick-slide > img')
+# for img in imgs:
+#     src = 'https://www.coffeebeankorea.com/' + img.attrs['src']
+#     print(src)
+#     index = src.rindex('/')
+#     file_name = src[index:]
+#     print(file_name)
 
-    #이미지저장
-    with open(path + file_name, 'wb') as file:
-        res= requests.get(src)
-        file.write(res.content)
+#     #이미지저장
+#     with open(path + file_name, 'wb') as file:
+#         res= requests.get(src)
+#         file.write(res.content)
