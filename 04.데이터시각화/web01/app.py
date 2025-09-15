@@ -47,6 +47,62 @@ def graph2(): #학생별 평균
     img.seek(0)
     return send_file(img, mimetype='image/png')
 
+@app.route('/graph3') #학교별 평균키
+def graph3():
+    group = df.groupby('학교')['키'].mean()
+    labels = group.index
+    values = group.values
+    plt.figure(figsize=(10, 5))
+    plt.ylim(160, 200)
+    plt.bar(labels, values, color='orange', hatch='/', ec='yellow', width=0.5)
+    plt.xticks(labels, rotation=45, size=8, color='g')
+    for idx, value in enumerate(values):
+        plt.text(idx, value+1, f'{value:.2f}cm', ha='center', color='g', size=8)
+
+    img = BytesIO()
+    plt.savefig(img, format='png')
+    plt.close()
+    img.seek(0)
+    return send_file(img, mimetype='image/png')
+
+@app.route('/graph4') #학교별 평균
+def graph4():
+    df['평균'] = df.apply(lambda row:row['국어':'사회'].mean(), axis=1)
+    group = df.groupby('학교')['평균'].mean()
+    labels = group.index
+    values = group.values
+    plt.figure(figsize=(10, 5))
+    plt.ylim(0, 100)
+    plt.bar(labels, values, color='orange', hatch='/', ec='yellow', width=0.5)
+    plt.xticks(labels, rotation=45, size=8, color='g')
+    for idx, value in enumerate(values):
+        plt.text(idx, value+1, f'{value:.2f}점', ha='center', color='g', size=8)
+
+    img = BytesIO()
+    plt.savefig(img, format='png')
+    plt.close()
+    img.seek(0)
+    return send_file(img, mimetype='image/png')
+
+@app.route('/graph5') #SW특기별 인원수
+def graph5():
+    df['SW특기'] = df['SW특기'].str.capitalize()
+    group = df.groupby('SW특기').size()
+    labels = group.index
+    values = group.values
+    plt.figure(figsize=(10, 5))
+    plt.ylim(0, 6)
+    plt.bar(labels, values, color='orange', hatch='/', ec='yellow', width=0.5)
+    plt.xticks(labels, rotation=45, size=10, color='g')
+    for idx, value in enumerate(values):
+        plt.text(idx, value+0.03, f'{value}명', ha='center', color='g', size=10)
+
+    img = BytesIO()
+    plt.savefig(img, format='png')
+    plt.close()
+    img.seek(0)
+    return send_file(img, mimetype='image/png')
+
 @app.route('/')
 def index():
     return render_template('index.html', title='학생관리')
