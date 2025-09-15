@@ -28,6 +28,25 @@ def graph1():
     plt.close()
     img.seek(0)
     return send_file(img, mimetype='image/png')
+
+@app.route('/graph2')
+def graph2(): #학생별 평균
+    df['평균'] = df.apply(lambda row:row['국어':'사회'].mean(), axis=1)
+    name = df['이름']
+    avg = df['평균']
+    plt.figure(figsize=(10, 5))
+    plt.ylim(0, 100)
+    plt.bar(name, avg, color='orange', hatch='/', ec='yellow')
+    plt.xticks(name, rotation=45, size=8, color='g')
+    for idx, h in enumerate(avg):
+        plt.text(idx, h+1, f'{h:.2f}', ha='center', color='g', size=8)
+
+    img = BytesIO()
+    plt.savefig(img, format='png')
+    plt.close()
+    img.seek(0)
+    return send_file(img, mimetype='image/png')
+
 @app.route('/')
 def index():
     return render_template('index.html', title='학생관리')

@@ -26,7 +26,7 @@
             <button id="btn5" class="btn btn-primary">SW특기별인원수</button>
         </div>
         <div class="text-center mt-5">
-            <img id="graph" src="http://placehold.co/500x300" width="50%">
+            <img id="graph" src="http://placehold.co/500x300" width="80%">
         </div>
     </div>
 </body>
@@ -40,6 +40,7 @@
     $("#btn2").on("click", function(){
         const title=$(this).html();
         $("#title").html(title)
+        $("#graph").attr("src", "/graph2")
     })
 
     $("#btn3").on("click", function(){
