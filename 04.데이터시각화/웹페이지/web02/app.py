@@ -80,5 +80,12 @@ def graph1():
     img.seek(0)
     return send_file(img, mimetype='image/png')
 
+@app.route('/score')
+def score():
+    table = df.to_html(classes='table table-striped')
+    return render_template(
+        'page1.html',
+        table1= table)
+
 if __name__=='__main__':
     app.run(port=5000, debug=True)
